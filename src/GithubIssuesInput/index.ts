@@ -1,3 +1,2 @@
-import GithubIssuesInput from './GithubIssuesInput'
+import GithubIssuesInput from "./GithubIssuesInput";
 export default GithubIssuesInput;
-

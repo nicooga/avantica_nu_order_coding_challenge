@@ -1,5 +1,5 @@
 type Issue = {
-  title: string,
-  id: number,
-  url: string
+  title: string;
+  id: number;
+  url: string;
 };

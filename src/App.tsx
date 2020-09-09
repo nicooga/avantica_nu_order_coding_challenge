@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React, { useState } from "react";
+import styled from "styled-components";
 
-import GithubIssuesInput from './GithubIssuesInput';
+import GithubIssuesInput from "./GithubIssuesInput";
 
 const Root = styled.div`
   display: flex;
@@ -15,9 +15,9 @@ const Root = styled.div`
 
 const SelectedIssue = styled.div`
   margin-top: 16px;
-`
+`;
 
-const App = () => {
+const App = (): React.ReactNode => {
   const [issue, setIssue] = useState<Issue>();
 
   return (
@@ -26,9 +26,9 @@ const App = () => {
 
       {issue && (
         <SelectedIssue>
-          The selected issue is:<br />
-
-          <a href={issue.url} target='_blank'>
+          The selected issue is:
+          <br />
+          <a href={issue.url} target="_blank" rel="noreferrer">
             [{issue.id}] {issue.title}
           </a>
         </SelectedIssue>

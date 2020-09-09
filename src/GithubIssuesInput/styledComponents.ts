@@ -1,11 +1,11 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const Root = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
   font-size: 18px;
-`
+`;
 
 const SuggestionsBox = styled.div`
   display: flex;
@@ -18,7 +18,7 @@ const SuggestionsBox = styled.div`
   border: 1px solid lightgrey;
   box-sizing: border-box;
   background: white;
-`
+`;
 
 const SuggestionsBoxItem = styled.div`
   padding: 8px;
@@ -29,16 +29,17 @@ const SuggestionsBoxItem = styled.div`
     border-bottom: 1px solid lightgrey;
   }
 
-  &:hover, &.active {
+  &:hover,
+  &.active {
     background-color: tomato;
   }
-`
+`;
 
 const Input = styled.input`
   width: 450px;
   border: 1px solid: lightgrey;
   padding: 5px 8px;
   box-sizing: border-box;
-`
+`;
 
 export { Root, SuggestionsBox, SuggestionsBoxItem, Input };
