@@ -2,6 +2,8 @@
 
 A simple typeahead input that searches issues in React's GitHub repo.
 
+![Screenshot](docs/screenshot.png)
+
 ## Setup
 
 ~~~bash

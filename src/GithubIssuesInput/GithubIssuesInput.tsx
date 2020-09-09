@@ -15,18 +15,25 @@ const GithubIssuesInput = ({ onChange: externalOnChange }: Props) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [suggestions, setSuggestions] = useState<Issue[]>([]);
   const [focusedSuggestion, setFocusedSuggestion] = useState<number>();
+  const [fetched, setFetched] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>();
 
   const fetchIssues = useCallback(
     debounce(
       async (filter: string) => {
+        setError(false);
         setLoading(true);
+        setFetched(false);
 
         try {
           const suggestions = await doFetchIssues(filter);
           setSuggestions(suggestions);
           setFocusedSuggestion(0);
+        } catch (_error) {
+          setError(true);
         } finally {
           setLoading(false);
+          setFetched(true);
         }
       },
       FETCH_DELAY
@@ -44,6 +51,7 @@ const GithubIssuesInput = ({ onChange: externalOnChange }: Props) => {
     externalOnChange(issue);
     setFocusedSuggestion(0);
     setSuggestions([]);
+    setFetched(false);
     setValue(`[${issue.id}] ${issue.title}`);
   }, [setSuggestions, setFocusedSuggestion, externalOnChange]);
 
@@ -63,8 +71,12 @@ const GithubIssuesInput = ({ onChange: externalOnChange }: Props) => {
     }
   }, [focusedSuggestion, setFocusedSuggestion, suggestions]);
 
+  const onBlur = useCallback(() => {
+    setSuggestions([]);
+  }, []);
+
   return (
-    <Root onKeyDown={onKeyDown}>
+    <Root onKeyDown={onKeyDown} onBlur={onBlur}>
       <label>
         Search react repo issues:
       </label>
@@ -80,7 +92,13 @@ const GithubIssuesInput = ({ onChange: externalOnChange }: Props) => {
             ... loading
           </SuggestionsBoxItem>
         </SuggestionsBox>
-      ) : !!suggestions.length ? (
+      ) : fetched && error ? (
+        <SuggestionsBox>
+          <SuggestionsBoxItem>
+            Error while fetching issues
+          </SuggestionsBoxItem>
+        </SuggestionsBox>
+      ) : fetched && !!suggestions.length ? (
         <SuggestionsBox>
           {suggestions.map((issue, index) => (
             <SuggestionsBoxItem
@@ -91,6 +109,12 @@ const GithubIssuesInput = ({ onChange: externalOnChange }: Props) => {
               [{issue.id}] {issue.title}
             </SuggestionsBoxItem>
           ))}
+        </SuggestionsBox>
+      ) : fetched ? (
+        <SuggestionsBox>
+          <SuggestionsBoxItem>
+            No matching issues found
+          </SuggestionsBoxItem>
         </SuggestionsBox>
       ) : null}
     </Root>

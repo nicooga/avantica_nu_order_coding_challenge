@@ -24,6 +24,10 @@ const fetchIssues = async (filter: string): Promise<Issue[]> => {
   const response = await fetch(`${ENDPOINT}?${queryString}`, { headers });
   const { items: issues } = await response.json();
 
+  if (!issues) {
+    throw new Error('No issues returned');
+  }
+
   return issues;
 };
 
