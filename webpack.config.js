@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const ErrorOverlayPlugin = require('error-overlay-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   entry: path.resolve(__dirname, 'src/index.tsx'),
@@ -13,7 +14,8 @@ module.exports = {
       template: 'src/index.html'
     }),
     new FriendlyErrorsWebpackPlugin(),
-    new ErrorOverlayPlugin()
+    new ErrorOverlayPlugin(),
+    new Dotenv()
   ],
   module: {
     rules: [

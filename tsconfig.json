@@ -1,12 +1,22 @@
 {
+  "ts-node": {
+    "files": true
+  },
+  "files": [
+    "src/index.tsx",
+    "src/types.d.ts"
+  ],
   "compilerOptions": {
     "outDir": "./dist/",
     "noImplicitAny": true,
-    "module": "es6",
+    "module": "esnext",
     "target": "es5",
     "jsx": "react",
     "allowJs": true,
     "strict": true,
-    "allowSyntheticDefaultImports": true
-  }
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "lib": ["dom", "esnext"]
+  },
+  "exclude": ["node_modules"]
 }
