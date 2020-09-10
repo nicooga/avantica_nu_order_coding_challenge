@@ -17,7 +17,7 @@ const SelectedIssue = styled.div`
   margin-top: 16px;
 `;
 
-const App = (): React.ReactNode => {
+const App = (): JSX.Element => {
   const [issue, setIssue] = useState<Issue>();
 
   return (

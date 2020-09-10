@@ -7,6 +7,7 @@ import {
   SuggestionsBoxItem,
   Input,
 } from "./styledComponents";
+
 import doFetchIssues from "./fetchIssues";
 
 type Props = {
@@ -17,7 +18,7 @@ const FETCH_DELAY = 300;
 
 const GithubIssuesInput = ({
   onChange: externalOnChange,
-}: Props): React.ReactNode => {
+}: Props): JSX.Element => {
   const [value, setValue] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [suggestions, setSuggestions] = useState<Issue[]>([]);
