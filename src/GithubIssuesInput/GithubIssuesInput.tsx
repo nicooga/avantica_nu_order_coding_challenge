@@ -25,6 +25,7 @@ const GithubIssuesInput = ({
   const [focusedSuggestion, setFocusedSuggestion] = useState<number>();
   const [fetched, setFetched] = useState<boolean>(false);
   const [error, setError] = useState<boolean>();
+  const [hovering, setHovering] = useState<boolean>(false);
 
   const fetchIssues = useCallback(
     debounce(async (filter: string) => {
@@ -55,10 +56,10 @@ const GithubIssuesInput = ({
   const selectSuggestion = useCallback(
     (issue: Issue) => {
       externalOnChange(issue);
+      setValue(`[${issue.id}] ${issue.title}`);
       setFocusedSuggestion(0);
       setSuggestions([]);
       setFetched(false);
-      setValue(`[${issue.id}] ${issue.title}`);
     },
     [setSuggestions, setFocusedSuggestion, externalOnChange]
   );
@@ -86,8 +87,12 @@ const GithubIssuesInput = ({
   );
 
   const onBlur = useCallback(() => {
+    if (hovering) {
+      return;
+    }
     setSuggestions([]);
-  }, []);
+    setFetched(false);
+  }, [hovering]);
 
   return (
     <Root onKeyDown={onKeyDown} onBlur={onBlur}>
@@ -104,11 +109,16 @@ const GithubIssuesInput = ({
           <SuggestionsBoxItem>Error while fetching issues</SuggestionsBoxItem>
         </SuggestionsBox>
       ) : fetched && !!suggestions.length ? (
-        <SuggestionsBox>
+        <SuggestionsBox
+          onMouseEnter={() => setHovering(true)}
+          onMouseLeave={() => setHovering(false)}
+        >
           {suggestions.map((issue, index) => (
             <SuggestionsBoxItem
               key={issue.id}
-              onClick={() => selectSuggestion(issue)}
+              onClick={() => {
+                selectSuggestion(issue);
+              }}
               className={focusedSuggestion === index ? "active" : undefined}
             >
               [{issue.id}] {issue.title}

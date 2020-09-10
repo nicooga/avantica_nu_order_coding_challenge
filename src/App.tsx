@@ -28,7 +28,7 @@ const App = (): JSX.Element => {
         <SelectedIssue>
           The selected issue is:
           <br />
-          <a href={issue.url} target="_blank" rel="noreferrer">
+          <a href={issue.repository_url} target="_blank" rel="noreferrer">
             [{issue.id}] {issue.title}
           </a>
         </SelectedIssue>

@@ -12,9 +12,24 @@ const DEBOUNCE_DELAY = 300;
 const FETCH_DELAY = 100;
 
 const DEFAULT_ISSUES: Issue[] = [
-  { id: 1, title: "Some issue 1", url: "https://example.com/1" },
-  { id: 2, title: "Some other issue 2", url: "https://example.com/2" },
-  { id: 3, title: "Another issue 3", url: "https://example.com/3" },
+  {
+    id: 1,
+    title: "Some issue 1",
+    url: "https://example.com/1",
+    repository_url: "https://example.com/1",
+  },
+  {
+    id: 2,
+    title: "Some other issue 2",
+    url: "https://example.com/2",
+    repository_url: "https://example.com/2",
+  },
+  {
+    id: 3,
+    title: "Another issue 3",
+    url: "https://example.com/3",
+    repository_url: "https://example.com/3",
+  },
 ];
 
 const simulateUserTypes = (input: ReactWrapper, str: string) => {
